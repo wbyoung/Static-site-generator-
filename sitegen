@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+module.exports = {};
 var program = require('commander');
 var fs = require('fs');
 var file = process.argv[2];
@@ -15,12 +15,18 @@ program
   .option('')
   .parse(process.argv);
 
-console.log(file);
-
-fs.readFile(file, options, function (err, contents) {
+var newFunction = function() {
+	fs.readFile(file, options, function (err, contents) {
 	fs.writeFile(newFile, contents, options, function (err) {
 	if (err) throw err;
   	console.log('It\'s saved!');
   	});
 });
+};
+
+
+
+module.exports.fileSaver = function () {
+	return true;
+};
 

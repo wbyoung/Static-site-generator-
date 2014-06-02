@@ -1,0 +1,19 @@
+{
+  "name": "Static-site-generator-",
+  "version": "0.1.0",
+  "description": "making static site generator",
+  "main": "sitegen",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/songty/Static-site-generator-.git"
+  },
+  "author": "Tian Song",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/songty/Static-site-generator-/issues"
+  },
+  "homepage": "https://github.com/songty/Static-site-generator-"
+}
