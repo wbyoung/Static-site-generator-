@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var fs = require('fs');
+var file = process.argv[2];
+var newFile = process.argv[3];
+var options = { encoding: 'utf8' };
+
+program
+  .version('0.0.1')
+  .option('')
+  .parse(process.argv);
+
+console.log(file);
+
+fs.readFile(file, options, function (err, contents) {
+	fs.writeFile(newFile, contents, options, function (err) {
+	if (err) throw err;
+  	console.log('It\'s saved!');
+  	});
+});
+
