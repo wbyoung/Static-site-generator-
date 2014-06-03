@@ -29,3 +29,11 @@ describe('isHtml()', function() {
 		expect(_.isHtml('blablab.hml')).to.be.eql(false);
 	});
 });
+
+describe('fileShreader()', function() {
+	it('deletes files inside a direcotry', function(done) {
+		_.fileShreader(function(err, files) {
+			expect()
+		});
+	});
+});
