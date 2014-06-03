@@ -1,10 +1,9 @@
 var chai = require('chai');
 var expect = chai.expect;
-var _ = require('../sitegen');
+var _ = require('../index');
 var path = require('path');
 
 describe('fileReader()', function() {
-		console.log(__dirname);
 	var fixture = path.join(__dirname, 'text.txt');
 
 	it('should read a file', function(done) {

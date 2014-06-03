@@ -9,6 +9,7 @@ var file = process.argv[2];
 var newFile = process.argv[3];
 var options = { encoding: 'utf8' };
 var path = require('path');
+var lib = require('./index');
 
 
 program
@@ -27,42 +28,12 @@ var newFunction = function() {
 
 
 
-var fileReader = module.exports.fileReader = function (textFile, cb) {
-	fs.readFile(textFile, options, function(err, contents) {
-		cb(null, contents);
-	});
-};
 
-var pathReader = module.exports.pathReader = function (ipath, cb) {
-	var newPath = path.join(__dirname, ipath);
-	fs.readdir(newPath, function(err, files) {
-		cb(null, files);
-	});
-};
-
-var fileWriter = module.exports.fileWriter = function () {
-
-};
-
-//Deletes all the files in the generated director
-var fileShreader  = module.exports.fileShreader = function (cb) {
-	var targetDir = path.join(__dirname, 'generated');
-	console.log(targetDir);
-	pathReader('generated', function(err, files) {
-		console.log(files);
-		files.forEach(function(element) {
-			var targetFile = path.join(targetDir, element);
-			console.log(targetFile);
-			fs.unlink(targetFile);
-		});
-		cb();
-	});
-};
 
 // fileShreader(function(err, files) {});
 
 //Splits the default template into two parts on {{ content }}
-fileReader(path.join(__dirname, 'source/layouts/default.html'), function(err, contents) {
+lib.fileReader(path.join(__dirname, 'source/layouts/default.html'), function(err, contents) {
 	if (contents.search("{{ content }}") !== -1) {
 		var defaultTemplate = contents.split("{{ content }}");
 		console.log(defaultTemplate[0]);
@@ -75,26 +46,19 @@ fileReader(path.join(__dirname, 'source/layouts/default.html'), function(err, co
 
 //Generates a file from the default template and create a new file with its contents
 
-pathReader('source', function(err, files) {
+lib.pathReader('source', function(err, files) {
 	console.log(files);
 });
 
-var isHtml = module.exports.isHtml = function(ifile) {
-	if (ifile.search('html') !== -1) {
-		return true;
-	} else {
-		return false;
-	}
-};
 
 
-pathReader('source/layouts', function(err, files) {
-	var filtered = files.filter(isHtml);
+lib.pathReader('source/layouts', function(err, files) {
+	var filtered = files.filter(lib.isHtml);
 	console.log(filtered);
 });
 
-pathReader('source/pages', function(err, files) {
-	var filtered = files.filter(isHtml);
+lib.pathReader('source/pages', function(err, files) {
+	var filtered = files.filter(lib.isHtml);
 	console.log(filtered);
 });
 
