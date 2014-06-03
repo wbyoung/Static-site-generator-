@@ -3,12 +3,13 @@
 /**
  * Module dependencies.
  */
-module.exports = {};
 var program = require('commander');
 var fs = require('fs');
 var file = process.argv[2];
 var newFile = process.argv[3];
 var options = { encoding: 'utf8' };
+var path = require('path');
+
 
 program
   .version('0.0.1')
@@ -26,7 +27,57 @@ var newFunction = function() {
 
 
 
-module.exports.fileSaver = function () {
-	return true;
+var fileReader = module.exports.fileReader = function (textFile, cb) {
+	fs.readFile(textFile, options, function(err, contents) {
+		cb(null, contents);
+	});
 };
+
+var pathReader = module.exports.pathReader = function (ipath, cb) {
+	var newPath = path.join(__dirname, ipath);
+	fs.readdir(newPath, function(err, files) {
+		cb(null, files);
+	});
+};
+
+var fileWriter = module.exports.fileWriter = function () {
+
+};
+
+//Splits the default template into two parts on {{ content }}
+fileReader(path.join(__dirname, 'source/layouts/default.html'), function(err, contents) {
+	if (contents.search("{{ content }}") !== -1) {
+		var defaultTemplate = contents.split("{{ content }}");
+		console.log(defaultTemplate[0]);
+		console.log('contents should go in here');
+		console.log(defaultTemplate[1]);
+	} else {
+		console.log('something went wrong!');
+	}
+});
+
+//Generates a file from the default template and create a new file with its contents
+
+pathReader('source', function(err, files) {
+	console.log(files);
+});
+
+var isHtml = module.exports.isHtml = function(ifile) {
+	if (ifile.search('html') !== -1) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+
+pathReader('source/layouts', function(err, files) {
+	var filtered = files.filter(isHtml);
+	console.log(filtered);
+});
+
+pathReader('source/pages', function(err, files) {
+	var filtered = files.filter(isHtml);
+	console.log(filtered);
+});
 
