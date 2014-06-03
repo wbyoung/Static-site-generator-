@@ -31,7 +31,7 @@ describe('isHtml()', function() {
 });
 
 describe('fileShreader()', function() {
-	it('deletes files inside a direcotry', function(done) {
+	it.skip('deletes files inside a direcotry', function(done) {
 		_.fileShreader(function(err, files) {
 			expect()
 		});
