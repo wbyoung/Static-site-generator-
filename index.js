@@ -3,7 +3,8 @@ var options = { encoding: 'utf8' };
 var path = require('path');
 
 var fileReader = module.exports.fileReader = function (textFile, cb) {
-	fs.readFile(textFile, options, function(err, contents) {
+	var newPath = path.join(__dirname, textFile);
+	fs.readFile(newPath, options, function(err, contents) {
 		cb(null, contents);
 	});
 };
@@ -15,8 +16,12 @@ var pathReader = module.exports.pathReader = function (ipath, cb) {
 	});
 };
 
-var fileWriter = module.exports.fileWriter = function () {
-
+//Makes a new file in the generated directory
+var fileWriter = module.exports.fileWriter = function (newFile) {
+	var targetDir = path.join(__dirname, 'generated', newFile);
+	fs.writeFile(targetDir, 'contents', options, function (err) {
+		if (err) throw err;
+  	});
 };
 
 //Deletes all the files in the generated director

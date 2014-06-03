@@ -4,10 +4,8 @@ var _ = require('../index');
 var path = require('path');
 
 describe('fileReader()', function() {
-	var fixture = path.join(__dirname, 'text.txt');
-
 	it('should read a file', function(done) {
-		_.fileReader(fixture, function (err, contents) {
+		_.fileReader('text.txt', function (err, contents) {
 			expect(contents).to.be.eql('this is just some text');
 			done();
 		});
@@ -32,7 +30,7 @@ describe('isHtml()', function() {
 describe('fileShreader()', function() {
 	it.skip('deletes files inside a direcotry', function(done) {
 		_.fileShreader(function(err, files) {
-			expect()
+			expect();
 		});
 	});
 });
